@@ -8,27 +8,20 @@ import { useRemoteFilmsStore } from "../store";
 import { Carousel, Pagination, Slide } from 'vue3-carousel';
 import { defineComponent } from 'vue'
 import 'vue3-carousel/dist/carousel.css';
-
   const films = useFilmsStore();
   const slideStore = useSlideStore();
   const filmsStore = useRemoteFilmsStore();
   const slideS = ['/src/assets/gen1.png' , '/src/assets/gen2.png' , '/src/assets/gen3.png',]
   filmsStore.loadAll();
-
   watchEffect(() => {
     //console.log('FILMS', filmsStore.films);
   })
-
-
-
 </script>
 <template>
-    
-
 <div class="slider">
  <Carousel :autoplay="2000" :wrap-around="true">
-    <Slide v-for="slide in slideS" :key="slide">
-      <div class="carousel__item">{{ slide }}<img :src="slideS[0]" alt="film photo">  </div>
+    <Slide v-for="slide in 3" :key="slide">
+      <div class="carousel__item">{{  }}<img :src="(`/src/assets/slide${slide}.jpeg`)" class="slidePhoto" alt="film photo">  </div>
     </Slide> 
   
     <template #addons>
@@ -47,6 +40,11 @@ import 'vue3-carousel/dist/carousel.css';
 </template>
 
 <style>
+.slidePhoto {
+  width: 55%;
+    height: 100%;
+   
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -80,7 +78,6 @@ a {
   text-decoration: none;
   display: inline-block;
   color: white;
-  
   width: 15%;
   height: 50%;
   float: left;
@@ -113,9 +110,9 @@ a:hover {
   padding: 10px;
 }
 .slider {
-  width: 75%;
+  width: 50%;
   margin: 0 auto;
-  border: 1px solid black;
+  border: 0px solid black;
   height: 450px;
   margin-top: 3%;
   

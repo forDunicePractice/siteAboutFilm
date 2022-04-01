@@ -1,9 +1,10 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-
+import { ref } from 'vue'
 import { watchEffect } from "@vue/runtime-core";
 import { useRemoteFilmsStore } from "../store";
+
 
   const filmsStore = useRemoteFilmsStore();
   filmsStore.loadAll();
@@ -11,6 +12,15 @@ import { useRemoteFilmsStore } from "../store";
   watchEffect(() => {
     console.log('FILMS', filmsStore.films);
   })
+  const FindFilm = true
+  const text = ref('')
+function Search(e) {
+ // text.value = e.target.value
+ filmsStore.films.includes(e.target.value) 
+ 
+  
+  
+}
 </script>
 
 <template>
@@ -21,8 +31,13 @@ import { useRemoteFilmsStore } from "../store";
   <li class="menu-li"><router-link to="/about">где посмотреть</router-link></li>
  <!-- <li class="menu-li"><router-link to='/helloWorld'>топ по жанрам</router-link></li> -->
  <!-- <li class="menu-li"><router-link to='/topsOfViews'>топ по просмотрам</router-link></li> -->
-  <li class="menu-li search"> <input type="search" placeholder="поиск"></li>
+  <li class="menu-li search"> <input :value="text" @input="Search" placeholder="поиск"></li>
 </ul>
+<div class="resultSearch">
+  <li class="menu-li search result" v-if="Search"> 
+    {{text}}
+  </li>
+</div>
  <router-view></router-view>
 
 </div>
@@ -38,7 +53,9 @@ import { useRemoteFilmsStore } from "../store";
   color: #ffffff;
   margin-top: 0px;
 }
-
+.result {
+  background-color: black;
+}
 * {
   margin: 0;
   padding: 0;
